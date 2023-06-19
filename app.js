@@ -8,7 +8,7 @@ $(document).ready(function() {
   
     function sendMessage(message) {
       // Use AJAX to send message to server
-      console.log("Sent"+message);
+      console.log("Sent : "+message);
       sendMessageToServer(message);
 
     }
@@ -17,11 +17,16 @@ $(document).ready(function() {
 function sendMessageToServer(message) {
     $.ajax({
       type: 'POST',
-      url: 'chat.php',
+      url: 'index.php',
       data: { message: message },
+      CORS: true,
+      cache: false,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       success: function(response) {
           // Handle successful message send
-          console.log("Success"+response);
+          console.log("Success "+response);
       },
       error: function(xhr, status, error) {
           // Handle error
