@@ -25,14 +25,14 @@ function getMessageFromServer() {
     },
     success: function (response) {
       // Handle successful message send
-      console.log(JSON.parse(response));
       var messages = JSON.parse(response);
       
       //Display the messages
       $('#chat-messages').empty();
       messages.reverse();
       for (var i = 0; i < messages.length; i++) {
-        $('#chat-messages').append(messages[i] + '<br/>');
+        if (messages[i].message === '') continue;
+        $('#chat-messages').append(messages[i].message + '      <input id="delete-button" type="button" value="Delete" onclick="deleteMessage('+ messages[i].id+')"><br/>');
       }
     },
     error: function (xhr, status, error) {
@@ -61,11 +61,54 @@ function sendMessageToServer(message) {
     },
     success: function (response) {
       // Handle successful message send
-      console.log("Success " + response);
+      var messages = JSON.parse(response);
+      $('#chat-messages').empty();
+      messages.reverse();
+      for (var i = 0; i < messages.length; i++) {
+        if (messages[i].message === '') continue;
+        $('#chat-messages').append(messages[i] + '<br/>');
+      }
     },
     error: function (xhr, status, error) {
       // Handle error
       console.log(status + " : " + error);
     }
   });
+}
+
+//Delete a message
+function deleteMessage(id) {
+  deleteMessageToServer(id);
+  console.log("Deleting message + message id: " + id);
+}
+
+function deleteMessageToServer(id) {
+  $.ajax({
+    type: "POST",
+    url: 'delete.php',
+    data: {id, id},
+    CORS: true,
+    cache: false,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    success: function (response) {
+      // Handle successful message deletion
+      $('#chat-messages'+id).remove();
+      // Handle successful message send
+      var messages = JSON.parse(response);
+      
+      //Display the messages
+      $('#chat-messages').empty();
+      messages.reverse();
+      for (var i = 0; i < messages.length; i++) {
+        if (messages[i].message === '') continue;
+        $('#chat-messages').append(messages[i].message + '      <input id="delete-button" type="button" value="Delete" onclick="deleteMessage('+ messages[i].id+')"><br/>');
+      }
+    },
+    error: function (xhr, status, error) {
+      // Handle error
+      console.log(status + " : " + error);
+    }
+  })
 }
