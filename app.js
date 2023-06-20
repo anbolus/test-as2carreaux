@@ -1,36 +1,71 @@
-$(document).ready(function() {
-    $('#chat-form').submit(function(e) {
-      e.preventDefault();
-      var message = $('#chat-input').val();
-      sendMessage(message);
-      $('#chat-input').val('');
-    });
-  
-    function sendMessage(message) {
-      // Use AJAX to send message to server
-      console.log("Sent : "+message);
-      sendMessageToServer(message);
-
-    }
+$(document).ready(function () {
+  $('#chat-form').submit(function (e) {
+    e.preventDefault();
+    var message = $('#chat-input').val();
+    sendMessage(message);
+    $('#chat-input').val('');
   });
 
-function sendMessageToServer(message) {
-    $.ajax({
-      type: 'POST',
-      url: 'index.php',
-      data: { message: message },
-      CORS: true,
-      cache: false,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-      success: function(response) {
-          // Handle successful message send
-          console.log("Success "+response);
-      },
-      error: function(xhr, status, error) {
-          // Handle error
-          console.log(status+" : "+error);
-      }
-    });
+  function sendMessage(message) {
+    // Use AJAX to send message to server
+    console.log("Sent : " + message);
+    sendMessageToServer(message);
   }
+});
+
+
+function getMessageFromServer() {
+  $.ajax({
+    type: 'POST',
+    url: 'messages.php',
+    CORS: true,
+    cache: false,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    success: function (response) {
+      // Handle successful message send
+      console.log(JSON.parse(response));
+      var messages = JSON.parse(response);
+      
+      //Display the messages
+      $('#chat-messages').empty();
+      messages.reverse();
+      for (var i = 0; i < messages.length; i++) {
+        $('#chat-messages').append(messages[i] + '<br/>');
+      }
+    },
+    error: function (xhr, status, error) {
+      // Handle error
+      console.log(status + " : " + error);
+    }
+  });
+}
+
+function getMessages() {
+  getMessageFromServer()
+  console.log("liste des messages:");
+  setTimeout(getMessages, 2000);
+}
+getMessages();
+
+function sendMessageToServer(message) {
+  $.ajax({
+    type: 'POST',
+    url: 'index.php',
+    data: { message: message },
+    CORS: true,
+    cache: false,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    success: function (response) {
+      // Handle successful message send
+      console.log("Success " + response);
+    },
+    error: function (xhr, status, error) {
+      // Handle error
+      console.log(status + " : " + error);
+    }
+  });
+}
