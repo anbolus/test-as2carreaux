@@ -32,7 +32,7 @@ function getMessageFromServer() {
       messages.reverse();
       for (var i = 0; i < messages.length; i++) {
         if (messages[i].message === '') continue;
-        $('#chat-messages').append(messages[i].message + '      <input id="delete-button" type="button" value="Delete" onclick="deleteMessage('+ messages[i].id+')"><br/>');
+        $('#chat-messages').append(messages[i].message + ' <input id="edit-button" type="button" value="Edit" onclick="editMessage('+ messages[i].id+')">     <input id="delete-button" type="button" value="Delete" onclick="deleteMessage('+ messages[i].id+')"><br/>');
       }
     },
     error: function (xhr, status, error) {
@@ -103,7 +103,7 @@ function deleteMessageToServer(id) {
       messages.reverse();
       for (var i = 0; i < messages.length; i++) {
         if (messages[i].message === '') continue;
-        $('#chat-messages').append(messages[i].message + '      <input id="delete-button" type="button" value="Delete" onclick="deleteMessage('+ messages[i].id+')"><br/>');
+        $('#chat-messages').append(messages[i].message + ' <input id="edit-button" type="button" value="Edit" onclick="editMessage('+ messages[i].id+')">     <input id="delete-button" type="button" value="Delete" onclick="deleteMessage('+ messages[i].id+')"><br/>');
       }
     },
     error: function (xhr, status, error) {
@@ -111,4 +111,52 @@ function deleteMessageToServer(id) {
       console.log(status + " : " + error);
     }
   })
+}
+
+//Edit a message
+function editMessage(id) {
+  var message = $('#chat-input').val();
+  let newMessage = prompt("Edit Message : ", message);
+  if(newMessage != null) {
+    editMessageToServer(id, newMessage);
+  }
+console.log("Message edited : ", newMessage + "\n" + id);
+}
+
+function editMessageToServer(id, newmessage) {
+  console.log(newmessage)
+  $.ajax({
+    type: "POST",
+    url: "edit.php",
+    data: {id: id, newmessage: newmessage},
+    success: function(response) {
+      // console.log(response);
+      // if(response.success) {  
+      //   var updatedMessage = response.updatedMessage;
+      //   var messageElement = $("#chat-messages" + id);
+  
+      //   messageElement.find("#chat-messages").text(updatedMessage);
+      //   alert("Your message has been updated");
+
+      //   $("#chat-messages").find("input[id='edit-message']").val(updatedMessage);
+  
+      //   $('#chat-messages'+id).remove();
+      //   // Handle successful message send
+      //   var messages = JSON.parse(response);
+        
+      //   //Display the messages
+      //   $('#chat-messages').empty();
+      //   messages.reverse();
+      //   for (var i = 0; i < messages.length; i++) {
+      //     if (messages[i].message === '') continue;
+      //     $('#chat-messages').append(messages[i].message + ' <input id="edit-button" type="button" value="Edit" onclick="editMessage('+ messages[i].id+')">     <input id="delete-button" type="button" value="Delete" onclick="deleteMessage('+ messages[i].id+')"><br/>');
+      //   }
+      // }
+
+    }, 
+    error: function(status, error) {
+      console.log(status + ": " + error);
+    }
+  })
+
 }
