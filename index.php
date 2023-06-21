@@ -1,5 +1,6 @@
 <?php
-  // Connect to database
+include("user-details.php");
+// Connect to database
   $db = new PDO('mysql:host=localhost;dbname=chat', 'root', 'Password34');
 
   // Retrieve message from client
@@ -16,4 +17,10 @@
 
   // Return latest messages
   echo json_encode($messages);
+
+  $userDetails = getUserById();
+  $username = $userDetails['username'];
+  $password = $userDetails['password'];
+
+  
 ?>

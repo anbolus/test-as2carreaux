@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+
+        function login() {
+            const username = $("#username").val();
+            const password = $("#password").val();
+            console.log(username)
+            console.log(password)
+            // if (username != "" && password != "") {
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "login.php",
+            //         data: {
+            //             login: "login",
+            //             username: username,
+            //             password: password,
+            //         },
+            //         success: function (response) {
+            //             if (response == "success") {
+            //                 window.location.href = "index.php";
+            //             } else {
+            //                 alert("Identification incorrect");
+            //             }
+            //         }
+            //     });
+            // } else {
+            //     alert("Please enter all details");
+            // }
+            return false;
+        }
+    </script>
+
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="login-form">
+            <h1>Login</h1>
+            <form action="login.php" method="post" id="login-form">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="Enter your username"> <br>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password"> <br>
+
+                <input type="submit" name="login" value="login" id="login-button">
+            </form>
+        </div>
+    </div>
+</body>
+<script src="login.js"></script>
+</html>
