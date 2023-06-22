@@ -49,6 +49,13 @@ function getMessages() {
 }
 getMessages();
 
+function getUser() {
+  var user = localStorage.getItem('user');
+  $('#chat-container').append('<p>Hello ' + user + " !</p>");
+  
+}
+getUser();
+
 function sendMessageToServer(message) {
   $.ajax({
     type: 'POST',

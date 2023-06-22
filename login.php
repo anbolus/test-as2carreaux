@@ -19,12 +19,14 @@ function loginUser($db, $userData) {
         if( sizeof($res) > 0) {
             session_start();
             $_SESSION['userId'] = $username;
-            header("Location: app.html");
+            //header("Location: app.html");
+            
         } else {
-            echo "wrong username or password";
+            echo json_encode(["error", "wrong username or password"]);
         }
     } else {
-        echo "All fields are required";
+        echo json_encode(["error", "All fields are required"]);
     }
+    echo json_encode(["success",$username]);
 }
 ?>
