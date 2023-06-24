@@ -5,10 +5,12 @@ include("user-details.php");
 
   // Retrieve message from client
   $message = $_POST['message'];
+  $username = $_POST['username'];
   
   // Insert message into database
-  $stmt = $db->prepare("INSERT INTO messages (message) VALUES (:message)");
-  $stmt->execute(array(':message' => $message));
+  $stmt = $db->prepare("INSERT INTO messages (message, username) VALUES (:message, :username) ");
+  $stmt->execute(array(':message' => $message, 'username' => $username));
+
 
   // Retrieve latest messages from database
   $stmt = $db->prepare("SELECT message FROM messages ORDER BY id DESC");
@@ -18,9 +20,5 @@ include("user-details.php");
   // Return latest messages
   echo json_encode($messages);
 
-  $userDetails = getUserById();
-  $username = $userDetails['username'];
-  $password = $userDetails['password'];
 
-  
-?>
+  ?>

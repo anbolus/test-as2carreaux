@@ -1,21 +1,124 @@
+@media screen and (min-width: 500px) and (max-width: 1470px) {
+  #chat-body {
+    overflow-x: hidden;
+  }
+
+  .edit-button, .delete-button {
+    display: flex;
+  }
+}
+
 #chat-container {
-    bottom:0;
-    left:0;
-    width: 100vw;
-    height: fit-content;
-    border: 1px solid #ccc;
-    overflow-y: scroll;
-  }
-  
-  #chat-messages {
-    padding: 10px;
-  }
-  
-  #chat-form {
-    padding: 10px;
-  }
-  
-  #chat-input {
-    width: 100%;
-    padding: 5px;
-  }
+  background: #b9bec4;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 0.5em;
+  padding: 20px;
+  margin: auto;
+  width: 65%;
+  height: 37.5em;
+  box-shadow: 0 0 1.25em 0.5em #b9bec4;
+}
+
+#chat-header {
+  margin-bottom: 1em;
+  color: #fff;
+}
+
+.message {
+  background-color: #1983fca6;
+  align-items: flex-end;
+  padding: 0.625em;
+  border-radius: 1em;
+  margin-bottom: 0.625em;
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+}
+
+.message-text {
+  align-self: flex-start;
+}
+
+#chat-messages::-webkit-scrollbar {
+  display: none;
+}
+
+#chat-messages {
+  transform: rotateX(180deg);
+  -moz-transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  -o-transform: rotateX(180deg);  
+}
+
+#message-sender {
+  font-weight: bold;
+  margin-bottom: 0.31em;
+}
+
+#chat-form {
+  display: flex;
+  align-items: center;
+  margin-top: 2em;
+  gap: 0.625em;
+}
+
+#chat-input {
+  padding: 0.625em;
+  border: none;
+  border-radius: 0.5em;
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 1em;
+  flex-grow: 1;
+}
+
+#send-button {
+  background-color: #ffff;
+  color: #fff;
+  font-size: 1em;
+  border: none;
+  padding: 0.625em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.message-text {
+  width: 100%;
+}
+
+.edit-button,
+.delete-button {
+  width: 75px;
+  margin-right: 0%;
+  border: 1px solid black;
+  float: right
+}
+
+#chat-body {
+  background-color: #cdcfd3;
+  height: 20em;
+  overflow-y: scroll;
+  padding: 0.625em;
+  border-radius: 1em;
+  margin-bottom: 0.625em;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
+  transform: rotateX(180deg);
+  -moz-transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  -o-transform: rotateX(180deg);
+}
+
+body {
+  padding: 50px;
+  align-content: center;
+}
+
+h1, p, #text, .message-text{
+  color: black;
+}
